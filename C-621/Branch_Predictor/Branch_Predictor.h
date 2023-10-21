@@ -12,44 +12,53 @@
 // Predictor type
 #define TWO_BIT_LOCAL
 //#define TOURNAMENT
+//#define GSHARE
 
 // saturating counter
 typedef struct Sat_Counter
 {
-    unsigned counter_bits;
-    uint8_t max_val;
-    uint8_t counter;
+	unsigned counter_bits;
+	uint8_t max_val;
+	uint8_t counter;
 }Sat_Counter;
 
 typedef struct Branch_Predictor
 {
-    #ifdef TWO_BIT_LOCAL
-    unsigned local_predictor_sets; // Number of entries in a local predictor
-    unsigned index_mask;
+#ifdef TWO_BIT_LOCAL
+	unsigned local_predictor_sets; // Number of entries in a local predictor
+	unsigned index_mask;
 
-    Sat_Counter *local_counters;
-    #endif
+	Sat_Counter *local_counters;
+#endif
 
-    #ifdef TOURNAMENT
-    unsigned local_predictor_size;
-    unsigned local_predictor_mask;
-    Sat_Counter *local_counters;
+#ifdef TOURNAMENT
+	unsigned local_predictor_size;
+	unsigned local_predictor_mask;
+	Sat_Counter *local_counters;
 
-    unsigned local_history_table_size;
-    unsigned local_history_table_mask;
-    unsigned *local_history_table;
+	unsigned local_history_table_size;
+	unsigned local_history_table_mask;
+	unsigned *local_history_table;
 
-    unsigned global_predictor_size;
-    unsigned global_history_mask;
-    Sat_Counter *global_counters;
+	unsigned global_predictor_size;
+	unsigned global_history_mask;
+	Sat_Counter *global_counters;
 
-    unsigned choice_predictor_size;
-    unsigned choice_history_mask;
-    Sat_Counter *choice_counters;
+	unsigned choice_predictor_size;
+	unsigned choice_history_mask;
+	Sat_Counter *choice_counters;
 
-    uint64_t global_history;
-    unsigned history_register_mask;
-    #endif
+	uint64_t global_history;
+	unsigned history_register_mask;
+#endif
+
+#ifdef GSHARE
+	unsigned global_predictor_size;
+	unsigned global_history_mask;
+	uint64_t global_history;
+	Sat_Counter *global_counters;
+#endif
+
 }Branch_Predictor;
 
 // Initialization function
