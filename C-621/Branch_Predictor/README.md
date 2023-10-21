@@ -1,5 +1,5 @@
-#Project 1: Implementing gShare branch prediction and evaluating its performance
-##Team members 
+# Project 1: Implementing gShare branch prediction and evaluating its performance
+## Team members 
 Justin Ngo, Vamsi Kolla
 
 ## Project Description
@@ -9,6 +9,6 @@ gShare. There are also 3 branch traces created using ML/AI that can be used to
 evaluate the performance of each branch predictor.
 
 ## To make and run
-- make clean
-- make
-- ./Main {trace-file-name}
+1. make clean
+2. make
+3. ./Main {trace-file-name}
