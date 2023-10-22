@@ -53,3 +53,5 @@ dkms.conf
 
 Main
 *.zip
+*.cpu_trace
+trace_folder/
