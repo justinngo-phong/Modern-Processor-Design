@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration values
-globalPredictorSizes=(2048 4096 8192 16384)
+globalPredictorSizes=(8192 16384 32768 65536)
 
 # Loop through configurations
 for i in "${!globalPredictorSizes[@]}"; do
