@@ -10,6 +10,13 @@ for i in "${!localPredictorSizes[@]}"; do
 	localPredictorSize="${localPredictorSizes[$i]}"
 	localCounterBit="${localCounterBits[$i]}"
 
+	if [ -z "$1" ]; then
+		echo "Usage: $0 <path_to_trace_folder>"
+		exit 1
+	fi
+
+	trace_folder="$1"
+
 	# Set configurations in Branch_Predictor.c
 	sed -i "s/const unsigned localPredictorSize = [0-9]\+;/const unsigned localPredictorSize = $localPredictorSize;/" Branch_Predictor.c
 	sed -i "s/const unsigned localCounterBits = [0-9]\+;/const unsigned localCounterBits = $localCounterBit;/" Branch_Predictor.c
@@ -21,13 +28,13 @@ for i in "${!localPredictorSizes[@]}"; do
 	# Run tests with the specified format
 	printf "\nRunning tests for localPredictorSize = $localPredictorSize, localCounterBits = $localCounterBit\n"
 	echo "------------------------------"
-	echo "Workload: trace_folder/531.deepsjeng_r_branches.cpu_trace"
-	./Main trace_folder/531.deepsjeng_r_branches.cpu_trace
+	echo "Workload: $trace_folder/531.deepsjeng_r_branches.cpu_trace"
+	./Main "$trace_folder/531.deepsjeng_r_branches.cpu_trace"
 	echo "------------------------------"
-	echo "Workload: trace_folder/541.leela_r_branches.cpu_trace"
-	./Main trace_folder/541.leela_r_branches.cpu_trace
+	echo "Workload: $trace_folder/541.leela_r_branches.cpu_trace"
+	./Main "$trace_folder/541.leela_r_branches.cpu_trace"
 	echo "------------------------------"
-	echo "Workload: trace_folder/548.exchange2_r_branches.cpu_trace"
-	./Main trace_folder/548.exchange2_r_branches.cpu_trace
+	echo "Workload: $trace_folder/548.exchange2_r_branches.cpu_trace"
+	./Main "$trace_folder/548.exchange2_r_branches.cpu_trace"
 	echo "------------------------------"
 done
