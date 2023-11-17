@@ -1,0 +1,240 @@
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 128 and assoc = 4
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 76.939192%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 42.554451%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.926982%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 128 and assoc = 8
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 79.376751%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 42.586477%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.958232%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 128 and assoc = 16
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 81.195524%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 43.731201%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 256 and assoc = 4
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 88.972509%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 70.743799%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.984771%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 256 and assoc = 8
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 90.789126%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 75.736557%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 256 and assoc = 16
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 91.505108%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 78.815214%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 512 and assoc = 4
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 93.843631%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 92.363097%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 512 and assoc = 8
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 94.859542%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 94.443418%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 512 and assoc = 16
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.036707%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 96.020614%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 1024 and assoc = 4
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.515018%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 98.220996%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 1024 and assoc = 8
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.682981%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 98.867637%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 1024 and assoc = 16
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.751690%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 99.011727%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 2048 and assoc = 4
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.906338%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 99.455119%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 2048 and assoc = 8
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.946182%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 99.597940%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
+
+Recompiling
+rm -f Main
+gcc -o Main Main.c Trace.c Cache.c -lm
+
+Running tests for cache_size = 2048 and assoc = 16
+------------------------------
+Workload: ../trace_folder/531.deepsjeng_r_llc.mem_trace
+Hit rate: 95.958330%
+------------------------------
+Workload: ../trace_folder/541.leela_r_llc.mem_trace
+Hit rate: 99.627833%
+------------------------------
+Workload: ../trace_folder/548.exchange2_r_llc.mem_trace
+Hit rate: 99.985094%
+------------------------------
