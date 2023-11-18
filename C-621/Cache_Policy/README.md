@@ -20,4 +20,6 @@ Their performances will be evaluated using AI workloads.
 4. If you want to save the output at the same time, do:
 ```./test_lru.sh <trace-folder-directory> | tee output_lru.txt```
 
-## Comparing 
+## Comparing LRU and LFU output .txt files
+1. There is a Python script to compare the two .txt output file: compare.py
+2. To run it, do: ```python compare.py```
