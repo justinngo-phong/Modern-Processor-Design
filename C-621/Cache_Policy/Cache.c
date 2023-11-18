@@ -2,7 +2,7 @@
 
 /* Constants */
 const unsigned block_size = 64; // Size of a cache line (in Bytes)
-const unsigned cache_size = 2048; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
+const unsigned cache_size = 1024; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
 const unsigned assoc = 16; // association configurations: 4, 8, 16
 
 Cache *initCache()
@@ -207,7 +207,7 @@ bool lru(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_add
 bool lfu(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_addr)
 {
 	uint64_t set_idx = (addr >> cache->set_shift) & cache->set_mask;
-	//    printf("Set: %"PRIu64"\n", set_idx);
+	//printf("Set: %"PRIu64"\n", set_idx);
 	Cache_Block **ways = cache->sets[set_idx].ways;
 
 	// Step one, try to find an invalid block.
@@ -221,7 +221,7 @@ bool lfu(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_add
 		}
 	}
 
-	// Step two, if there is no invalid block. Locate the LRU block
+	// Step two, if there is no invalid block. Locate the LFU block by comparing frequency 
 	Cache_Block *victim = ways[0];
 	for (i = 1; i < cache->num_ways; i++)
 	{
@@ -233,8 +233,8 @@ bool lfu(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_add
 
 	// Step three, need to write-back the victim block
 	*wb_addr = (victim->tag << cache->tag_shift) | (victim->set << cache->set_shift);
-	//    uint64_t ori_addr = (victim->tag << cache->tag_shift) | (victim->set << cache->set_shift);
-	//    printf("Evicted: %"PRIu64"\n", ori_addr);
+	//uint64_t ori_addr = (victim->tag << cache->tag_shift) | (victim->set << cache->set_shift);
+	//printf("Evicted: %"PRIu64"\n", ori_addr);
 
 	// Step three, invalidate victim
 	victim->tag = UINTMAX_MAX;
