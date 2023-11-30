@@ -45,6 +45,7 @@ int main(int argc, const char *argv[])
             // Step two, insertBlock()
 //            printf("Inserting: %"PRIu64"\n", mem_trace->cur_req->load_or_store_addr);
             uint64_t wb_addr;
+			//printMemRequest(mem_trace->cur_req);
             if (insertBlock(cache, mem_trace->cur_req, cycles, &wb_addr))
             {
                 num_evicts++;

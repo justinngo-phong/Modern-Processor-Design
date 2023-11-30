@@ -2,8 +2,12 @@
 
 /* Constants */
 const unsigned block_size = 64; // Size of a cache line (in Bytes)
-const unsigned cache_size = 1024; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
-const unsigned assoc = 16; // association configurations: 4, 8, 16
+const unsigned cache_size = 256; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
+const unsigned assoc = 4; // association configurations: 4, 8, 16
+
+const unsigned shct_count_max = 16;
+// Signature History Counter Table for PC-Signature-based Hit Predictor (PC SHiP)
+unsigned shct[SHCT_SIZE];
 
 Cache *initCache()
 {
@@ -26,7 +30,13 @@ Cache *initCache()
 		cache->blocks[i].dirty = false;
 		cache->blocks[i].when_touched = 0;
 		cache->blocks[i].frequency = 0;
+		cache->blocks[i].signature_m = 0;
+		cache->blocks[i].outcome = false;
 	}
+
+	// intialize the shct_mask
+	unsigned shct_mask = SHCT_SIZE - 1;
+	cache->shct_mask = shct_mask;
 
 	// Initialize Set-way variables
 	unsigned num_sets = cache_size * 1024 / (block_size * assoc);
@@ -70,6 +80,8 @@ Cache *initCache()
 	return cache;
 }
 
+
+
 bool accessBlock(Cache *cache, Request *req, uint64_t access_time)
 {
 	bool hit = false;
@@ -91,9 +103,26 @@ bool accessBlock(Cache *cache, Request *req, uint64_t access_time)
 		{
 			blk->dirty = true;
 		}
+
+		// Set the cache line outcome to true since it's a hit
+		blk->outcome = true;
+		// Increment the counter for the signature if it has not exceeded shct_count_max
+		if (shct[blk->signature_m] < shct_count_max)
+			shct[blk->signature_m]++;
 	}
 
 	return hit;
+}
+
+unsigned pcHashFunction(Cache *cache, uint64_t pc) {
+	// Shift right by 2 to discard the 2 LSB (because PC is increment by 4)
+	pc >>= 2;
+
+	// Apply the mask to the new pc
+	uint64_t maskedPc = pc & cache->shct_mask;
+
+	// Hash by taking modulo with SHCT_SIZE
+	return (unsigned)(maskedPc % SHCT_SIZE);
 }
 
 bool insertBlock(Cache *cache, Request *req, uint64_t access_time, uint64_t *wb_addr)
@@ -112,12 +141,36 @@ bool insertBlock(Cache *cache, Request *req, uint64_t access_time, uint64_t *wb_
 
 	assert(victim != NULL);
 
-	// Step two, insert the new block
+	// Step two, check the outcome of the evicted cache line
+	// If the outcome it's false, then decrement its counter
+	if (victim->outcome == false)
+		shct[victim->signature_m]--;
+
+	// Step three, insert the new block
 	uint64_t tag = req->load_or_store_addr >> cache->tag_shift;
 	victim->tag = tag;
 	victim->valid = true;
+	victim->PC = req->PC;
+	//printf("pc: %"PRIu64"\n", victim->PC);
 
-	victim->when_touched = access_time;
+	// Set outcome for new block
+	victim->outcome = false;
+
+	// Find the signature for new block by hashing its PC
+	victim->signature_m = pcHashFunction(cache, victim->PC);
+	//printf("signature: %u\n", victim->signature_m);
+	//printf("shct counter: %u\n", shct[victim->signature_m]);
+
+#ifdef LRU
+	// if shct counter of the signature is 0 then predict distance re-reference 
+	// else intermediate re-reference
+	if (shct[victim->signature_m] == 0) {
+		victim->when_touched = 0; // insert this block as the next victim in LRU chain
+	} else {
+		victim->when_touched = access_time; // insert this block as normal
+	}
+#endif
+	
 	++victim->frequency;
 
 	if (req->req_type == STORE)
@@ -198,6 +251,8 @@ bool lru(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_add
 	victim->dirty = false;
 	victim->frequency = 0;
 	victim->when_touched = 0;
+	victim->outcome = false;
+	victim->signature_m = 0;
 
 	*victim_blk = victim;
 
@@ -242,6 +297,8 @@ bool lfu(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_add
 	victim->dirty = false;
 	victim->frequency = 0;
 	victim->when_touched = 0;
+	victim->outcome = false;
+	victim->signature_m = 0;
 
 	*victim_blk = victim;
 

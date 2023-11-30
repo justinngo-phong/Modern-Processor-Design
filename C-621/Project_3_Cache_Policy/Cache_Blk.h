@@ -22,6 +22,10 @@ typedef struct Cache_Block
     // Advanced Features
     uint64_t PC; // Which instruction that brings in this block?
     int core_id; // Which core the instruction is running on.
+
+	// Signature-based Hit Indicator variables
+	bool outcome; // Determines whether the signature has been re-referenced after insertion.
+	unsigned signature_m; // The signature of each instruction, which is hashed by the instruction's PC.
 }Cache_Block;
 
 #endif

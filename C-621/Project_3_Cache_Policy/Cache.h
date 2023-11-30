@@ -15,6 +15,8 @@
 #define LRU
 //#define LFU
 
+#define SHCT_SIZE 65536
+
 /* Cache */
 typedef struct Set
 {
@@ -36,6 +38,8 @@ typedef struct Cache
     unsigned set_mask; // To extract set index
     unsigned tag_shift; // To extract tag
 
+	unsigned shct_mask; // Mask for PC for SHCT
+
     Set *sets; // All the sets of a cache
     
 }Cache;
@@ -48,6 +52,7 @@ bool insertBlock(Cache *cache, Request *req, uint64_t access_time, uint64_t *wb_
 // Helper Function
 uint64_t blkAlign(uint64_t addr, uint64_t mask);
 Cache_Block *findBlock(Cache *cache, uint64_t addr);
+unsigned pcHashFunction(Cache *cache, uint64_t pc);
 
 // Replacement Policies
 bool lru(Cache *cache, uint64_t addr, Cache_Block **victim_blk, uint64_t *wb_addr);
