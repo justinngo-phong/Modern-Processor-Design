@@ -2,8 +2,8 @@
 
 /* Constants */
 const unsigned block_size = 64; // Size of a cache line (in Bytes)
-const unsigned cache_size = 256; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
-const unsigned assoc = 4; // association configurations: 4, 8, 16
+const unsigned cache_size = 2048; // Size of a cache (in KB): 128, 256, 512, 1024, 2048
+const unsigned assoc = 16; // association configurations: 4, 8, 16
 
 const unsigned shct_count_max = 16;
 // Signature History Counter Table for PC-Signature-based Hit Predictor (PC SHiP)
@@ -143,7 +143,7 @@ bool insertBlock(Cache *cache, Request *req, uint64_t access_time, uint64_t *wb_
 
 	// Step two, check the outcome of the evicted cache line
 	// If the outcome it's false, then decrement its counter
-	if (victim->outcome == false)
+	if ((victim->outcome == false) && (shct[victim->signature_m] > 0))
 		shct[victim->signature_m]--;
 
 	// Step three, insert the new block
